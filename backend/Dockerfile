@@ -14,5 +14,5 @@ RUN find . -name "*.java" -type f | xargs javac -cp "lib/*" -d bin -encoding UTF
 # Expose port (Railway will set this via PORT env variable)
 EXPOSE 8080
 
-# Run the server
-CMD ["java", "-cp", "lib/*:bin", "api.ApiServer"]
+# Run with SSL/TLS configuration for MongoDB Atlas
+CMD ["java", "-Djavax.net.ssl.trustStore=/opt/java/openjdk/lib/security/cacerts", "-Djavax.net.ssl.trustStorePassword=changeit", "-Djdk.tls.client.protocols=TLSv1.2", "-cp", "lib/*:bin", "api.ApiServer"]

@@ -16,18 +16,37 @@ public class MongoDBConnectionManager {
 
     public static void initialize(String connectionString, String databaseName) {
         if (mongoClient == null) {
-            MongoClientSettings settings = MongoClientSettings.builder()
-                    .applyConnectionString(new ConnectionString(connectionString))
-                    .applyToConnectionPoolSettings(builder -> 
-                        builder.maxSize(50)
-                               .minSize(5)
-                               .maxWaitTime(120, TimeUnit.SECONDS)
-                    )
-                    .build();
+            try {
+                System.out.println("Connecting to MongoDB...");
+                
+                MongoClientSettings settings = MongoClientSettings.builder()
+                        .applyConnectionString(new ConnectionString(connectionString))
+                        .applyToConnectionPoolSettings(builder -> 
+                            builder.maxSize(50)
+                                   .minSize(5)
+                                   .maxWaitTime(120, TimeUnit.SECONDS)
+                        )
+                        .applyToSocketSettings(builder ->
+                            builder.connectTimeout(30, TimeUnit.SECONDS)
+                                   .readTimeout(30, TimeUnit.SECONDS)
+                        )
+                        .applyToClusterSettings(builder ->
+                            builder.serverSelectionTimeout(30, TimeUnit.SECONDS)
+                        )
+                        .build();
 
-            mongoClient = MongoClients.create(settings);
-            database = mongoClient.getDatabase(databaseName);
-            System.out.println("MongoDB connected successfully to database: " + databaseName);
+                mongoClient = MongoClients.create(settings);
+                database = mongoClient.getDatabase(databaseName);
+                
+                // Test connection
+                database.listCollectionNames().first();
+                
+                System.out.println("✅ MongoDB connected successfully to database: " + databaseName);
+            } catch (Exception e) {
+                System.err.println("❌ Failed to connect to MongoDB: " + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException("MongoDB connection failed", e);
+            }
         }
     }
 
