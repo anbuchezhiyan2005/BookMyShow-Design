@@ -1,0 +1,42 @@
+.seat-layout {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.screen {
+  background: linear-gradient(to bottom, #34495e, #2c3e50);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 40px;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.seats-container {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.seat-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.row-label {
+  width: 30px;
+  font-weight: 600;
+  color: #555;
+  text-align: center;
+}
+
+.seats {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}

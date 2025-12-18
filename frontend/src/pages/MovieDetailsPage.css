@@ -1,0 +1,125 @@
+.movie-details {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 40px;
+  background: white;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.movie-poster-large {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 300px;
+  height: 400px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.movie-icon-large {
+  font-size: 120px;
+}
+
+.movie-info-large h1 {
+  font-size: 36px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.movie-meta-large {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background: #e74c3c;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.movie-description {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.movie-release {
+  color: #888;
+  font-size: 14px;
+}
+
+.theatres-section {
+  margin-top: 40px;
+}
+
+.theatres-section h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+.theatre-card-large {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.theatre-info h3 {
+  font-size: 20px;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.theatre-info p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.show-times {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.show-time-btn {
+  padding: 12px 20px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.show-time-btn:hover {
+  background: #229954;
+  transform: translateY(-2px);
+}
+
+.show-time {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.show-price {
+  font-size: 14px;
+}
+
+.show-seats {
+  font-size: 12px;
+  opacity: 0.9;
+  margin-top: 4px;
+}

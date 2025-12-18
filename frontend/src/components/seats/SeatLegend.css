@@ -1,0 +1,41 @@
+.seat-legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-box {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+}
+
+.legend-box.available {
+  background-color: #27ae60;
+}
+
+.legend-box.selected {
+  background-color: #e74c3c;
+}
+
+.legend-box.booked {
+  background-color: #95a5a6;
+}
+
+.legend-box.premium {
+  background-color: #27ae60;
+  border: 2px solid #f39c12;
+}
+
+.legend-box.vip {
+  background-color: #27ae60;
+  border: 2px solid #9b59b6;
+}

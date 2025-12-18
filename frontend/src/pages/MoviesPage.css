@@ -1,0 +1,49 @@
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.movies-header {
+  margin-bottom: 32px;
+}
+
+.movies-header h1 {
+  font-size: 32px;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+.filters {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 250px;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #e74c3c;
+}
+
+.genre-filter {
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+}
+
+.genre-filter:focus {
+  outline: none;
+  border-color: #e74c3c;
+}

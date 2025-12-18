@@ -1,0 +1,24 @@
+.payment-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.payment-form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.payment-form select:focus {
+  outline: none;
+  border-color: #e74c3c;
+}

@@ -1,0 +1,11 @@
+bin/
+*.class
+.DS_Store
+.git
+.gitignore
+README.md
+start-server.bat
+start-server.sh
+*.md
+.idea/
+.vscode/
