@@ -1,6 +1,9 @@
-FROM eclipse-temurin:17-jdk-jammy
+FROM amazoncorretto:17
 
 WORKDIR /app
+
+# Install ca-certificates for SSL
+RUN yum install -y ca-certificates && yum clean all
 
 # Copy all files
 COPY . .
@@ -15,4 +18,4 @@ RUN find . -name "*.java" -type f | xargs javac -cp "lib/*" -d bin -encoding UTF
 EXPOSE 8080
 
 # Run with SSL/TLS configuration for MongoDB Atlas
-CMD ["java", "-Djavax.net.ssl.trustStore=/opt/java/openjdk/lib/security/cacerts", "-Djavax.net.ssl.trustStorePassword=changeit", "-Djdk.tls.client.protocols=TLSv1.2", "-cp", "lib/*:bin", "api.ApiServer"]
+CMD ["java", "-Dcom.amazonaws.sdk.disableCertChecking=false", "-cp", "lib/*:bin", "api.ApiServer"]

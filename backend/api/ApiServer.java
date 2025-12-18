@@ -50,11 +50,16 @@ public class ApiServer {
 
     public static void main(String[] args) {
         try {
+            System.out.println("Starting BookMyShow API Server...");
             ApiServer apiServer = new ApiServer();
             apiServer.start();
-        } catch (IOException e) {
-            System.err.println("Failed to start server: " + e.getMessage());
+            
+            // Keep server running
+            System.out.println("Server is running. Press Ctrl+C to stop.");
+        } catch (Exception e) {
+            System.err.println("❌ Failed to start server: " + e.getMessage());
             e.printStackTrace();
+            System.exit(1); // Exit with error code
         }
     }
 }
