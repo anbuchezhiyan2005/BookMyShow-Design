@@ -9,6 +9,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Indexes;
 import com.mongodb.client.model.Updates;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,12 @@ public class ShowRepositoryImpl implements ShowRepository {
     @Override
     public List<Show> findByMovieId(String movieId) {
         List<Show> shows = new ArrayList<>();
-        collection.find(Filters.eq("movieId", movieId)).forEach(doc -> shows.add(documentToShow(doc)));
+        try {
+            ObjectId objectId = new ObjectId(movieId);
+            collection.find(Filters.eq("movieId", objectId)).forEach(doc -> shows.add(documentToShow(doc)));
+        } catch (IllegalArgumentException e) {
+            collection.find(Filters.eq("movieId", movieId)).forEach(doc -> shows.add(documentToShow(doc)));
+        }
         return shows;
     }
 
