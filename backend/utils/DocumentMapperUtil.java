@@ -86,11 +86,17 @@ public class DocumentMapperUtil {
         if (value instanceof String) {
             try {
                 String dateString = (String) value;
-                LocalDateTime ldt = LocalDateTime.parse(dateString, ISO_DATETIME_FORMATTER);
-                return toDate(ldt);
+                // Try parsing as ISO date-time
+                try {
+                    LocalDateTime ldt = LocalDateTime.parse(dateString, ISO_DATETIME_FORMATTER);
+                    return toDate(ldt);
+                } catch (Exception e) {
+                    // Fallback to plain date parsing
+                    LocalDate ld = LocalDate.parse(dateString, ISO_DATE_FORMATTER);
+                    return toDate(ld);
+                }
             } catch (Exception e) {
-                System.err.println("Failed to parse date string: " + value + " for field: " + fieldName);
-                return null;
+                return null; // Return null if parsing fails
             }
         }
         
