@@ -8,6 +8,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Indexes;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 public class UserRepositoryImpl implements UserRepository {
     private MongoCollection<Document> collection;
@@ -30,8 +31,18 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User findById(String userId) {
-        Document doc = collection.find(Filters.eq("_id", userId)).first();
-        return doc == null ? null : documentToUser(doc);
+        if (userId == null || userId.isEmpty()) {
+            return null;
+        }
+        try {
+            // Try to convert string to ObjectId for querying
+            ObjectId objectId = new ObjectId(userId);
+            Document doc = collection.find(Filters.eq("_id", objectId)).first();
+            return doc == null ? null : documentToUser(doc);
+        } catch (IllegalArgumentException e) {
+            // If not a valid ObjectId, return null
+            return null;
+        }
     }
 
     @Override
