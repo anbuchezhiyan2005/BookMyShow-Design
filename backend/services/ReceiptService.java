@@ -40,9 +40,25 @@ public class ReceiptService {
         }
 
         User user = userRepository.findById(booking.getUserId());
+        if (user == null) {
+            throw new RuntimeException("User not found with ID: " + booking.getUserId());
+        }
+        
         Show show = showRepository.findById(booking.getShowId());
+        if (show == null) {
+            throw new RuntimeException("Show not found with ID: " + booking.getShowId());
+        }
+        
         Movie movie = movieRepository.findById(show.getMovieId());
+        if (movie == null) {
+            throw new RuntimeException("Movie not found with ID: " + show.getMovieId());
+        }
+        
         Theatre theatre = theatreRepository.findById(show.getTheatreId());
+        if (theatre == null) {
+            throw new RuntimeException("Theatre not found with ID: " + show.getTheatreId());
+        }
+        
         Payment payment = paymentRepository.findByBookingId(bookingId);
 
         // Format receipt details
