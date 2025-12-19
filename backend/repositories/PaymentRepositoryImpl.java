@@ -72,8 +72,16 @@ public class PaymentRepositoryImpl implements PaymentRepository {
         } else if (bookingIdField instanceof String) {
             payment.setBookingId((String) bookingIdField);
         }
-        Double amount = doc.getDouble("amount");
-        payment.setAmount(amount != null ? amount : 0.0);
+        
+        // Handle amount as either Integer or Double
+        Object amountField = doc.get("amount");
+        if (amountField instanceof Integer) {
+            payment.setAmount(((Integer) amountField).doubleValue());
+        } else if (amountField instanceof Double) {
+            payment.setAmount((Double) amountField);
+        } else {
+            payment.setAmount(0.0);
+        }
         payment.setPaymentMethod(PaymentMethod.valueOf(doc.getString("paymentMethod")));
         payment.setPaymentStatus(PaymentStatus.valueOf(doc.getString("paymentStatus")));
         payment.setTransactionId(doc.getString("transactionId"));

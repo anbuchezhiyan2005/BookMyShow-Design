@@ -113,8 +113,16 @@ public class BookingRepositoryImpl implements BookingRepository {
         }
         
         booking.setBookingDate(DocumentMapperUtil.safeGetLocalDateTime(doc, "bookingDate"));
-        Double totalAmount = doc.getDouble("totalAmount");
-        booking.setTotalAmount(totalAmount != null ? totalAmount : 0.0);
+        
+        // Handle totalAmount as either Integer or Double
+        Object totalAmountField = doc.get("totalAmount");
+        if (totalAmountField instanceof Integer) {
+            booking.setTotalAmount(((Integer) totalAmountField).doubleValue());
+        } else if (totalAmountField instanceof Double) {
+            booking.setTotalAmount((Double) totalAmountField);
+        } else {
+            booking.setTotalAmount(0.0);
+        }
         booking.setPaymentStatus(PaymentStatus.valueOf(doc.getString("paymentStatus")));
         booking.setBookingStatus(BookingStatus.valueOf(doc.getString("bookingStatus")));
         booking.setSeatIds((List<String>) doc.get("seatIds"));

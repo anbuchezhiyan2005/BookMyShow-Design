@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        pre { background: #f4f4f4; padding: 10px; overflow-x: auto; }
+        button { padding: 10px; margin: 5px; cursor: pointer; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h2>BookMyShow API Test</h2>
+    
+    <button onclick="testMovies()">Test Movies API</button>
+    <button onclick="testTheatres()">Test Theatres API</button>
+    <button onclick="testShows()">Test Shows API (MOVIE_1)</button>
+    <button onclick="testSeats()">Test Seats API (SHOW_1)</button>
+    
+    <div id="result"></div>
+
+    <script>
+        const API_BASE = 'https://bookmyshow-design-production.up.railway.app/api';
+        
+        async function testAPI(endpoint, description) {
+            const result = document.getElementById('result');
+            result.innerHTML = `<p>Testing ${description}...</p>`;
+            
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`);
+                const data = await response.json();
+                
+                result.innerHTML = `
+                    <h3 class="success">✓ ${description}</h3>
+                    <p>Status: ${response.status}</p>
+                    <p>Data count: ${Array.isArray(data) ? data.length : 'N/A'}</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                result.innerHTML = `
+                    <h3 class="error">✗ ${description}</h3>
+                    <p class="error">Error: ${error.message}</p>
+                `;
+            }
+        }
+        
+        function testMovies() {
+            testAPI('/movies', 'Movies API');
+        }
+        
+        function testTheatres() {
+            testAPI('/theatres', 'Theatres API');
+        }
+        
+        function testShows() {
+            testAPI('/shows?movieId=MOVIE_1', 'Shows API for MOVIE_1');
+        }
+        
+        function testSeats() {
+            testAPI('/seats?showId=SHOW_1', 'Seats API for SHOW_1');
+        }
+    </script>
+</body>
+</html>

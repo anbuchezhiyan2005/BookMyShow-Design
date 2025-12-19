@@ -105,8 +105,17 @@ public class ShowRepositoryImpl implements ShowRepository {
         }
         
         show.setShowTime(DocumentMapperUtil.safeGetLocalDateTime(doc, "showTime"));
-        Double price = doc.getDouble("price");
-        show.setPrice(price != null ? price : 0.0);
+        
+        // Handle price as either Integer or Double
+        Object priceField = doc.get("price");
+        if (priceField instanceof Integer) {
+            show.setPrice(((Integer) priceField).doubleValue());
+        } else if (priceField instanceof Double) {
+            show.setPrice((Double) priceField);
+        } else {
+            show.setPrice(0.0);
+        }
+        
         Integer availableSeats = doc.getInteger("availableSeats");
         show.setAvailableSeats(availableSeats != null ? availableSeats : 0);
         return show;
