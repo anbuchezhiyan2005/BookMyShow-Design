@@ -10,6 +10,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Indexes;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 public class PaymentRepositoryImpl implements PaymentRepository {
     private MongoCollection<Document> collection;
