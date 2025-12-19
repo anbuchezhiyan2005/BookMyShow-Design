@@ -65,7 +65,7 @@ public class PaymentRepositoryImpl implements PaymentRepository {
         payment.setPaymentMethod(PaymentMethod.valueOf(doc.getString("paymentMethod")));
         payment.setPaymentStatus(PaymentStatus.valueOf(doc.getString("paymentStatus")));
         payment.setTransactionId(doc.getString("transactionId"));
-        payment.setPaymentDate(DocumentMapperUtil.toLocalDateTime(doc.getDate("paymentDate")));
+        payment.setPaymentDate(DocumentMapperUtil.safeGetLocalDateTime(doc, "paymentDate"));
         return payment;
     }
 }

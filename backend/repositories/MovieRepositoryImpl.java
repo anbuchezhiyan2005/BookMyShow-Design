@@ -84,7 +84,7 @@ public class MovieRepositoryImpl implements MovieRepository {
         movie.setDuration(doc.getInteger("duration"));
         movie.setGenre(doc.getString("genre"));
         movie.setLanguage(doc.getString("language"));
-        movie.setReleaseDate(DocumentMapperUtil.toLocalDate(doc.getDate("releaseDate")));
+        movie.setReleaseDate(DocumentMapperUtil.safeGetLocalDate(doc, "releaseDate"));
         return movie;
     }
 }

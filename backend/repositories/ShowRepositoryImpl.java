@@ -80,7 +80,7 @@ public class ShowRepositoryImpl implements ShowRepository {
         show.setShowId(doc.getObjectId("_id").toString());
         show.setMovieId(doc.getString("movieId"));
         show.setTheatreId(doc.getString("theatreId"));
-        show.setShowTime(DocumentMapperUtil.toLocalDateTime(doc.getDate("showTime")));
+        show.setShowTime(DocumentMapperUtil.safeGetLocalDateTime(doc, "showTime"));
         show.setPrice(doc.getDouble("price"));
         show.setAvailableSeats(doc.getInteger("availableSeats"));
         return show;

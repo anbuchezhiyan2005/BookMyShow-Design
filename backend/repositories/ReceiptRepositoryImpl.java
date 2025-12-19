@@ -56,7 +56,7 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
         Receipt receipt = new Receipt();
         receipt.setReceiptId(doc.getObjectId("_id").toString());
         receipt.setBookingId(doc.getString("bookingId"));
-        receipt.setGeneratedDate(DocumentMapperUtil.toLocalDateTime(doc.getDate("generatedDate")));
+        receipt.setGeneratedDate(DocumentMapperUtil.safeGetLocalDateTime(doc, "generatedDate"));
         receipt.setReceiptDetails(doc.getString("receiptDetails"));
         return receipt;
     }

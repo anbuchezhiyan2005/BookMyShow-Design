@@ -66,7 +66,7 @@ public class UserRepositoryImpl implements UserRepository {
         user.setEmail(doc.getString("email"));
         user.setPassword(doc.getString("password"));
         user.setPhoneNumber(doc.getString("phoneNumber"));
-        user.setCreatedAt(DocumentMapperUtil.toLocalDateTime(doc.getDate("createdAt")));
+        user.setCreatedAt(DocumentMapperUtil.safeGetLocalDateTime(doc, "createdAt"));
         return user;
     }
 }
