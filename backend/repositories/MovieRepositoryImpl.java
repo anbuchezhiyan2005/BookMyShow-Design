@@ -8,6 +8,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Indexes;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,13 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @Override
     public Movie findById(String movieId) {
-        Document doc = collection.find(Filters.eq("_id", movieId)).first();
+        Document doc = null;
+        try {
+            ObjectId objectId = new ObjectId(movieId);
+            doc = collection.find(Filters.eq("_id", objectId)).first();
+        } catch (IllegalArgumentException e) {
+            doc = collection.find(Filters.eq("_id", movieId)).first();
+        }
         return doc == null ? null : documentToMovie(doc);
     }
 
