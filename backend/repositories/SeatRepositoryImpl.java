@@ -9,6 +9,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Indexes;
 import com.mongodb.client.model.Updates;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,12 @@ public class SeatRepositoryImpl implements SeatRepository {
     @Override
     public List<Seat> findByShowId(String showId) {
         List<Seat> seats = new ArrayList<>();
-        collection.find(Filters.eq("showId", showId)).forEach(doc -> seats.add(documentToSeat(doc)));
+        try {
+            ObjectId objectId = new ObjectId(showId);
+            collection.find(Filters.eq("showId", objectId)).forEach(doc -> seats.add(documentToSeat(doc)));
+        } catch (IllegalArgumentException e) {
+            collection.find(Filters.eq("showId", showId)).forEach(doc -> seats.add(documentToSeat(doc)));
+        }
         return seats;
     }
 
