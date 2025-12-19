@@ -105,8 +105,10 @@ public class ShowRepositoryImpl implements ShowRepository {
         }
         
         show.setShowTime(DocumentMapperUtil.safeGetLocalDateTime(doc, "showTime"));
-        show.setPrice(doc.getDouble("price"));
-        show.setAvailableSeats(doc.getInteger("availableSeats"));
+        Double price = doc.getDouble("price");
+        show.setPrice(price != null ? price : 0.0);
+        Integer availableSeats = doc.getInteger("availableSeats");
+        show.setAvailableSeats(availableSeats != null ? availableSeats : 0);
         return show;
     }
 }

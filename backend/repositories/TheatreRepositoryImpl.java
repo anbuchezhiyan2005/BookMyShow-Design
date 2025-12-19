@@ -65,11 +65,17 @@ public class TheatreRepositoryImpl implements TheatreRepository {
 
     private Theatre documentToTheatre(Document doc) {
         Theatre theatre = new Theatre();
-        theatre.setTheatreId(doc.getObjectId("_id").toString());
+        Object idField = doc.get("_id");
+        if (idField instanceof ObjectId) {
+            theatre.setTheatreId(((ObjectId) idField).toString());
+        } else if (idField instanceof String) {
+            theatre.setTheatreId((String) idField);
+        }
         theatre.setName(doc.getString("name"));
         theatre.setLocation(doc.getString("location"));
         theatre.setCity(doc.getString("city"));
-        theatre.setTotalSeats(doc.getInteger("totalSeats"));
+        Integer totalSeats = doc.getInteger("totalSeats");
+        theatre.setTotalSeats(totalSeats != null ? totalSeats : 0);
         return theatre;
     }
 }

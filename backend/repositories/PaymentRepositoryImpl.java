@@ -59,9 +59,20 @@ public class PaymentRepositoryImpl implements PaymentRepository {
 
     private Payment documentToPayment(Document doc) {
         Payment payment = new Payment();
-        payment.setPaymentId(doc.getObjectId("_id").toString());
-        payment.setBookingId(doc.getString("bookingId"));
-        payment.setAmount(doc.getDouble("amount"));
+        Object idField = doc.get("_id");
+        if (idField instanceof ObjectId) {
+            payment.setPaymentId(((ObjectId) idField).toString());
+        } else if (idField instanceof String) {
+            payment.setPaymentId((String) idField);
+        }
+        Object bookingIdField = doc.get("bookingId");
+        if (bookingIdField instanceof ObjectId) {
+            payment.setBookingId(((ObjectId) bookingIdField).toString());
+        } else if (bookingIdField instanceof String) {
+            payment.setBookingId((String) bookingIdField);
+        }
+        Double amount = doc.getDouble("amount");
+        payment.setAmount(amount != null ? amount : 0.0);
         payment.setPaymentMethod(PaymentMethod.valueOf(doc.getString("paymentMethod")));
         payment.setPaymentStatus(PaymentStatus.valueOf(doc.getString("paymentStatus")));
         payment.setTransactionId(doc.getString("transactionId"));
