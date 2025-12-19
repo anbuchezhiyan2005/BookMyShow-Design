@@ -34,15 +34,16 @@ public class UserRepositoryImpl implements UserRepository {
         if (userId == null || userId.isEmpty()) {
             return null;
         }
+        Document doc = null;
         try {
             // Try to convert string to ObjectId for querying
             ObjectId objectId = new ObjectId(userId);
-            Document doc = collection.find(Filters.eq("_id", objectId)).first();
-            return doc == null ? null : documentToUser(doc);
+            doc = collection.find(Filters.eq("_id", objectId)).first();
         } catch (IllegalArgumentException e) {
-            // If not a valid ObjectId, return null
-            return null;
+            // If not a valid ObjectId, try as string
+            doc = collection.find(Filters.eq("_id", userId)).first();
         }
+        return doc == null ? null : documentToUser(doc);
     }
 
     @Override
