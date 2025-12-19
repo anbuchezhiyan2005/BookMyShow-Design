@@ -65,10 +65,10 @@ public class ReceiptHandler implements HttpHandler {
     }
 
     private void handleGetReceiptByBooking(HttpExchange exchange, String bookingId) throws IOException {
-        Receipt receipt = receiptService.getReceiptByBooking(bookingId);
-        if (receipt != null) {
+        try {
+            Receipt receipt = receiptService.getReceiptByBooking(bookingId);
             HttpUtils.sendJsonResponse(exchange, 200, receipt);
-        } else {
+        } catch (RuntimeException e) {
             HttpUtils.sendErrorResponse(exchange, 404, "Receipt not found");
         }
     }
