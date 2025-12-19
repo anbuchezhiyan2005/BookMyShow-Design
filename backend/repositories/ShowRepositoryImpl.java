@@ -83,9 +83,27 @@ public class ShowRepositoryImpl implements ShowRepository {
 
     private Show documentToShow(Document doc) {
         Show show = new Show();
-        show.setShowId(doc.getObjectId("_id").toString());
-        show.setMovieId(doc.getString("movieId"));
-        show.setTheatreId(doc.getString("theatreId"));
+        Object idField = doc.get("_id");
+        if (idField instanceof ObjectId) {
+            show.setShowId(((ObjectId) idField).toString());
+        } else if (idField instanceof String) {
+            show.setShowId((String) idField);
+        }
+        
+        Object movieIdField = doc.get("movieId");
+        if (movieIdField instanceof ObjectId) {
+            show.setMovieId(((ObjectId) movieIdField).toString());
+        } else if (movieIdField instanceof String) {
+            show.setMovieId((String) movieIdField);
+        }
+        
+        Object theatreIdField = doc.get("theatreId");
+        if (theatreIdField instanceof ObjectId) {
+            show.setTheatreId(((ObjectId) theatreIdField).toString());
+        } else if (theatreIdField instanceof String) {
+            show.setTheatreId((String) theatreIdField);
+        }
+        
         show.setShowTime(DocumentMapperUtil.safeGetLocalDateTime(doc, "showTime"));
         show.setPrice(doc.getDouble("price"));
         show.setAvailableSeats(doc.getInteger("availableSeats"));

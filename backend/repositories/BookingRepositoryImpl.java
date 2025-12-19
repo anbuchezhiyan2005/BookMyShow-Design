@@ -90,9 +90,27 @@ public class BookingRepositoryImpl implements BookingRepository {
     @SuppressWarnings("unchecked")
     private Booking documentToBooking(Document doc) {
         Booking booking = new Booking();
-        booking.setBookingId(doc.getObjectId("_id").toString());
-        booking.setUserId(doc.getString("userId"));
-        booking.setShowId(doc.getString("showId"));
+        Object idField = doc.get("_id");
+        if (idField instanceof ObjectId) {
+            booking.setBookingId(((ObjectId) idField).toString());
+        } else if (idField instanceof String) {
+            booking.setBookingId((String) idField);
+        }
+        
+        Object userIdField = doc.get("userId");
+        if (userIdField instanceof ObjectId) {
+            booking.setUserId(((ObjectId) userIdField).toString());
+        } else if (userIdField instanceof String) {
+            booking.setUserId((String) userIdField);
+        }
+        
+        Object showIdField = doc.get("showId");
+        if (showIdField instanceof ObjectId) {
+            booking.setShowId(((ObjectId) showIdField).toString());
+        } else if (showIdField instanceof String) {
+            booking.setShowId((String) showIdField);
+        }
+        
         booking.setBookingDate(DocumentMapperUtil.safeGetLocalDateTime(doc, "bookingDate"));
         booking.setTotalAmount(doc.getDouble("totalAmount"));
         booking.setPaymentStatus(PaymentStatus.valueOf(doc.getString("paymentStatus")));
