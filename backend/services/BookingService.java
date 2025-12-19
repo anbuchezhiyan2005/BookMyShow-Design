@@ -22,6 +22,12 @@ public class BookingService {
     }
 
     public Booking createBooking(String userId, String showId, List<String> seatIds) {
+        try {
+            new ObjectId(showId);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Invalid Show ID format: " + showId);
+        }
+
         Show show = showRepository.findById(showId);
         if (show == null) {
             throw new RuntimeException("Show not found with ID: " + showId);
