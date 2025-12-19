@@ -39,14 +39,7 @@ public class ReceiptService {
             throw new RuntimeException("Booking not found with ID: " + bookingId);
         }
 
-        User user = null;
-        try {
-            new ObjectId(booking.getUserId());
-            user = userRepository.findById(booking.getUserId());
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException("Invalid User ID format in booking: " + booking.getUserId());
-        }
-        
+        User user = userRepository.findById(booking.getUserId());
         Show show = showRepository.findById(booking.getShowId());
         Movie movie = movieRepository.findById(show.getMovieId());
         Theatre theatre = theatreRepository.findById(show.getTheatreId());

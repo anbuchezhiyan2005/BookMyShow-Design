@@ -39,12 +39,6 @@ public class UserService {
         if (userId == null || userId.isEmpty()) {
             throw new RuntimeException("User ID cannot be null or empty");
         }
-        try {
-            // Validate ObjectId
-            new ObjectId(userId);
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException("Invalid User ID format: " + userId);
-        }
         User user = userRepository.findById(userId);
         if (user == null) {
             throw new RuntimeException("User not found with ID: " + userId);
