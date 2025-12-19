@@ -61,7 +61,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     private User documentToUser(Document doc) {
         User user = new User();
-        user.setUserId(doc.getString("_id"));
+        user.setUserId(doc.getObjectId("_id").toString());
         user.setName(doc.getString("name"));
         user.setEmail(doc.getString("email"));
         user.setPassword(doc.getString("password"));

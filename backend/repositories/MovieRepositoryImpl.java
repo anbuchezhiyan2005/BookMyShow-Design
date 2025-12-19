@@ -78,7 +78,7 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     private Movie documentToMovie(Document doc) {
         Movie movie = new Movie();
-        movie.setMovieId(doc.getString("_id"));
+        movie.setMovieId(doc.getObjectId("_id").toString());
         movie.setTitle(doc.getString("title"));
         movie.setDescription(doc.getString("description"));
         movie.setDuration(doc.getInteger("duration"));

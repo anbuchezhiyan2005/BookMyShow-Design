@@ -65,7 +65,7 @@ public class TheatreRepositoryImpl implements TheatreRepository {
 
     private Theatre documentToTheatre(Document doc) {
         Theatre theatre = new Theatre();
-        theatre.setTheatreId(doc.getString("_id"));
+        theatre.setTheatreId(doc.getObjectId("_id").toString());
         theatre.setName(doc.getString("name"));
         theatre.setLocation(doc.getString("location"));
         theatre.setCity(doc.getString("city"));

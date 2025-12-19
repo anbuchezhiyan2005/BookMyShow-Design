@@ -96,7 +96,7 @@ public class SeatRepositoryImpl implements SeatRepository {
 
     private Seat documentToSeat(Document doc) {
         Seat seat = new Seat();
-        seat.setSeatId(doc.getString("_id"));
+        seat.setSeatId(doc.getObjectId("_id").toString());
         seat.setShowId(doc.getString("showId"));
         seat.setSeatNumber(doc.getString("seatNumber"));
         seat.setAvailable(doc.getBoolean("isAvailable"));

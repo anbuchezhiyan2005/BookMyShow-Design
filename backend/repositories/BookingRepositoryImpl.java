@@ -90,7 +90,7 @@ public class BookingRepositoryImpl implements BookingRepository {
     @SuppressWarnings("unchecked")
     private Booking documentToBooking(Document doc) {
         Booking booking = new Booking();
-        booking.setBookingId(doc.getString("_id"));
+        booking.setBookingId(doc.getObjectId("_id").toString());
         booking.setUserId(doc.getString("userId"));
         booking.setShowId(doc.getString("showId"));
         booking.setBookingDate(DocumentMapperUtil.toLocalDateTime(doc.getDate("bookingDate")));

@@ -59,7 +59,7 @@ public class PaymentRepositoryImpl implements PaymentRepository {
 
     private Payment documentToPayment(Document doc) {
         Payment payment = new Payment();
-        payment.setPaymentId(doc.getString("_id"));
+        payment.setPaymentId(doc.getObjectId("_id").toString());
         payment.setBookingId(doc.getString("bookingId"));
         payment.setAmount(doc.getDouble("amount"));
         payment.setPaymentMethod(PaymentMethod.valueOf(doc.getString("paymentMethod")));
